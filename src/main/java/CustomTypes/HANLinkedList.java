@@ -1,22 +1,29 @@
 package CustomTypes;
 
+import java.util.Optional;
+
 public class HANLinkedList<T> {
 
-    private HANLinkedListNode<T> firstNode;
+    private Optional<HANLinkedListNode<T>> firstNode;
+
+    public HANLinkedList() {
+        firstNode = Optional.empty();
+    }
 
     public void addFirst(T value) {
-        HANLinkedListNode<T> previousFirst = firstNode;
-        firstNode = new HANLinkedListNode<T>(value);
-        firstNode.setNext(previousFirst);
+        HANLinkedListNode<T> newFirstNode = new HANLinkedListNode<>(value);
+        firstNode.ifPresent(newFirstNode::setNext);
+        firstNode = Optional.of(newFirstNode);
     }
 
     public void removeFirst() {
-        firstNode = firstNode.getNext();
+        firstNode.ifPresent(currentFirst ->
+                firstNode = currentFirst.getNext());
     }
 
     public void insert(int index, T value) {
         HANLinkedListNode<T> nodeBeforeTarget = getNode(index - 1);
-        HANLinkedListNode<T> currentTargetNode = nodeBeforeTarget.getNext();
+        HANLinkedListNode<T> currentTargetNode = nodeBeforeTarget.getNext().orElseThrow(ArrayIndexOutOfBoundsException::new);
         HANLinkedListNode<T> newTargetNode = new HANLinkedListNode<T>(value);
 
         newTargetNode.setNext(currentTargetNode);
@@ -25,10 +32,10 @@ public class HANLinkedList<T> {
 
     public void delete(int index) {
         HANLinkedListNode<T> nodeBeforeTarget = getNode(index - 1);
-        HANLinkedListNode<T> nodeAfterTarget = nodeBeforeTarget.getNext()
-                                                               .getNext();
+        HANLinkedListNode<T> targetNode =
+                nodeBeforeTarget.getNext().orElseThrow(ArrayIndexOutOfBoundsException::new);
 
-        nodeBeforeTarget.setNext(nodeAfterTarget);
+        targetNode.getNext().ifPresent(nodeBeforeTarget::setNext);
     }
 
     public T get(int index) {
@@ -36,10 +43,10 @@ public class HANLinkedList<T> {
     }
 
     private HANLinkedListNode<T> getNode(int index) {
-        HANLinkedListNode<T> next = firstNode;
+        HANLinkedListNode<T> next = firstNode.orElseThrow(ArrayIndexOutOfBoundsException::new);
 
         for (int i = 0; i < index; i++) {
-            next = next.getNext();
+            next = next.getNext().orElseThrow(ArrayIndexOutOfBoundsException::new);
         }
 
         return next;
