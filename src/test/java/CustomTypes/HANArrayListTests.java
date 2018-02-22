@@ -7,11 +7,11 @@ import org.junit.rules.ExpectedException;
 
 import static junit.framework.TestCase.assertEquals;
 
-public class ArrayListTests {
+public class HANArrayListTests {
 
     private static final String ITEM = "Something";
 
-    private ArrayList<String> sut;
+    private HANArrayList<String> sut;
 
     @Rule
     public ExpectedException expectedException = ExpectedException.none();
@@ -19,7 +19,7 @@ public class ArrayListTests {
 
     @Before
     public void setUp() {
-        sut = new ArrayList<String>();
+        sut = new HANArrayList<String>();
     }
 
     @Test
@@ -61,6 +61,13 @@ public class ArrayListTests {
         expectedException.expect(IndexOutOfBoundsException.class);
 
         sut.get(-1);
+    }
+
+    @Test
+    public void addCanInsert20Items() {
+        for(int i = 0; i < 20; i++) {
+            sut.add(ITEM + i);
+        }
     }
 
     @Test
