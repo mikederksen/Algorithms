@@ -15,7 +15,12 @@ public class HANLinkedList<T> {
     }
 
     public void insert(int index, T value) {
+        HANLinkedListNode<T> nodeBeforeTarget = getNode(index - 1);
+        HANLinkedListNode<T> currentTargetNode = nodeBeforeTarget.getNext();
+        HANLinkedListNode<T> newTargetNode = new HANLinkedListNode<T>(value);
 
+        newTargetNode.setNext(currentTargetNode);
+        nodeBeforeTarget.setNext(newTargetNode);
     }
 
     public void delete(int index) {
