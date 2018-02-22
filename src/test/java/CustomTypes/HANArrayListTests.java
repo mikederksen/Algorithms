@@ -16,7 +16,6 @@ public class HANArrayListTests {
     @Rule
     public ExpectedException expectedException = ExpectedException.none();
 
-
     @Before
     public void setUp() {
         sut = new HANArrayList<String>();
@@ -65,7 +64,7 @@ public class HANArrayListTests {
 
     @Test
     public void addCanInsert20Items() {
-        for(int i = 0; i < 20; i++) {
+        for (int i = 0; i < 20; i++) {
             sut.add(ITEM + i);
         }
     }

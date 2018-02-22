@@ -16,21 +16,21 @@ public class HANArrayList<T> {
         items[counter] = value;
         counter++;
 
-        if(counter == items.length) {
+        if (counter == items.length) {
             doubleArray();
         }
     }
 
     public void set(int index, T value) {
-        if(isOutOfBounds(index)) {
+        if (isOutOfBounds(index)) {
             throw new ArrayIndexOutOfBoundsException();
         }
 
         items[index] = value;
     }
 
-    public T get (int index) {
-        if(isOutOfBounds(index)) {
+    public T get(int index) {
+        if (isOutOfBounds(index)) {
             throw new IndexOutOfBoundsException();
         }
 
@@ -42,6 +42,6 @@ public class HANArrayList<T> {
     }
 
     private boolean isOutOfBounds(int index) {
-        return index > counter -1;
+        return index > counter - 1;
     }
 }
