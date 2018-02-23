@@ -7,29 +7,44 @@ import java.util.Optional;
 public class HANLinkedList<T> {
 
     private Optional<HANLinkedListNode<T>> firstNode;
+    private int size;
 
     public HANLinkedList() {
         firstNode = Optional.empty();
+        size = 0;
     }
 
     public void addFirst(T value) {
         HANLinkedListNode<T> newFirstNode = new HANLinkedListNode<>(value);
         firstNode.ifPresent(newFirstNode::setNext);
         firstNode = Optional.of(newFirstNode);
+
+        size++;
     }
 
     public void removeFirst() {
-        firstNode.ifPresent(currentFirst ->
-                firstNode = currentFirst.getNext());
+        firstNode.ifPresent(currentFirst ->{
+            firstNode = currentFirst.getNext();
+            size--;
+        });
     }
 
     public void insert(int index, T value) {
-        HANLinkedListNode<T> nodeBeforeTarget = getNode(index - 1);
         HANLinkedListNode<T> newTargetNode = new HANLinkedListNode<>(value);
-        Optional<HANLinkedListNode<T>> maybeOldTargetNode = nodeBeforeTarget.getNext();
+        final Optional<HANLinkedListNode<T>> oldTargetNode;
 
-        nodeBeforeTarget.setNext(newTargetNode);
-        maybeOldTargetNode.ifPresent(newTargetNode::setNext);
+        if(index == 0) {
+            oldTargetNode = firstNode;
+            firstNode = Optional.of(newTargetNode);
+        } else {
+            HANLinkedListNode<T> nodeBeforeTarget = getNode(index - 1);
+            oldTargetNode = nodeBeforeTarget.getNext();
+
+            nodeBeforeTarget.setNext(newTargetNode);
+        }
+
+        oldTargetNode.ifPresent(newTargetNode::setNext);
+        size++;
     }
 
     public void delete(int index) {
@@ -42,6 +57,10 @@ public class HANLinkedList<T> {
 
     public T get(int index) {
         return getNode(index).getValue();
+    }
+
+    public int getSize() {
+        return size;
     }
 
     private HANLinkedListNode<T> getNode(int index) {

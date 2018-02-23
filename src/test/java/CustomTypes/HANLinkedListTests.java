@@ -24,6 +24,26 @@ public class HANLinkedListTests {
     }
 
     @Test
+    public void constructorSetsSizeTo_0() {
+        assertEquals(0, sut.getSize());
+    }
+
+    @Test
+    public void addFirstIncreasesSizeWith_1() {
+        sut.addFirst(ITEM1);
+
+        assertEquals(1, sut.getSize());
+    }
+
+    @Test
+    public void addFirstTwiceIncreasesSizeWith_2() {
+        sut.addFirst(ITEM2);
+        sut.addFirst(ITEM1);
+
+        assertEquals(2, sut.getSize());
+    }
+
+    @Test
     public void addFirstAddsNodeInBeginningOfList() {
         sut.addFirst(ITEM2);
         sut.addFirst(ITEM1);
@@ -37,6 +57,23 @@ public class HANLinkedListTests {
         sut.addFirst(ITEM1);
 
         assertEquals(ITEM2, sut.get(1));
+    }
+
+    @Test
+    public void removeFirstDecreasesSizeWith1() {
+        sut.addFirst(ITEM2);
+        sut.addFirst(ITEM1);
+
+        sut.removeFirst();
+
+        assertEquals(1, sut.getSize());
+    }
+
+    @Test
+    public void removeFirstDoesntDecreaseIfEmpty() {
+        sut.removeFirst();
+
+        assertEquals(0, sut.getSize());
     }
 
     @Test
@@ -55,7 +92,7 @@ public class HANLinkedListTests {
     }
 
     @Test
-    public void insertInsertsItemAtIndex() {
+    public void insertInsertsItemAtIndex_1() {
         sut.addFirst(ITEM2);
         sut.addFirst(ITEM1);
 
@@ -64,6 +101,17 @@ public class HANLinkedListTests {
         assertEquals(ITEM1, sut.get(0));
         assertEquals(ITEM3, sut.get(1));
         assertEquals(ITEM2, sut.get(2));
+    }
+
+    @Test
+    public void insertInsertsItemAtIndex_0() {
+        sut.insert(0, ITEM1);
+
+        assertEquals(ITEM1, sut.get(0));
+    }
+
+    @Test
+    public void insertIncreasesSize() {
     }
 
     @Test
