@@ -2,6 +2,8 @@ package CustomTypes;
 
 import java.util.Optional;
 
+// HANLinkedList should not be package-prive since this is a library
+@SuppressWarnings({"WeakerAccess"})
 public class HANLinkedList<T> {
 
     private Optional<HANLinkedListNode<T>> firstNode;
@@ -23,11 +25,11 @@ public class HANLinkedList<T> {
 
     public void insert(int index, T value) {
         HANLinkedListNode<T> nodeBeforeTarget = getNode(index - 1);
-        HANLinkedListNode<T> currentTargetNode = nodeBeforeTarget.getNext().orElseThrow(ArrayIndexOutOfBoundsException::new);
-        HANLinkedListNode<T> newTargetNode = new HANLinkedListNode<T>(value);
+        HANLinkedListNode<T> newTargetNode = new HANLinkedListNode<>(value);
+        Optional<HANLinkedListNode<T>> maybeOldTargetNode = nodeBeforeTarget.getNext();
 
-        newTargetNode.setNext(currentTargetNode);
         nodeBeforeTarget.setNext(newTargetNode);
+        maybeOldTargetNode.ifPresent(newTargetNode::setNext);
     }
 
     public void delete(int index) {
@@ -46,7 +48,8 @@ public class HANLinkedList<T> {
         HANLinkedListNode<T> next = firstNode.orElseThrow(ArrayIndexOutOfBoundsException::new);
 
         for (int i = 0; i < index; i++) {
-            next = next.getNext().orElseThrow(ArrayIndexOutOfBoundsException::new);
+            Optional<HANLinkedListNode<T>> nextDing = next.getNext();
+            next = nextDing.orElseThrow(ArrayIndexOutOfBoundsException::new);
         }
 
         return next;

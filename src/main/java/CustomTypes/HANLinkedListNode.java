@@ -13,6 +13,7 @@ public class HANLinkedListNode<T> {
         }
 
         this.value = value;
+        next = Optional.empty();
     }
 
     public T getValue() {

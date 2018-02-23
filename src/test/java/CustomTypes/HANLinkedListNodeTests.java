@@ -8,6 +8,8 @@ import org.junit.rules.ExpectedException;
 import java.util.Optional;
 
 import static junit.framework.TestCase.assertEquals;
+import static junit.framework.TestCase.assertFalse;
+import static junit.framework.TestCase.assertNotNull;
 import static junit.framework.TestCase.assertTrue;
 
 public class HANLinkedListNodeTests {
@@ -31,8 +33,16 @@ public class HANLinkedListNodeTests {
     }
 
     @Test
-    public void getValueReturnsValue() {
+    public void constructorSetsValue() {
         assertEquals(ITEM, sut.getValue());
+    }
+
+    @Test
+    public void constructorSetsNext() {
+        Optional<HANLinkedListNode<String>> next = sut.getNext();
+
+        assertNotNull(next);
+        assertFalse(next.isPresent());
     }
 
     @Test

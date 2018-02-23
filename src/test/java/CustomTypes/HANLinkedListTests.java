@@ -1,7 +1,9 @@
 package CustomTypes;
 
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 import static junit.framework.TestCase.assertEquals;
 
@@ -13,9 +15,12 @@ public class HANLinkedListTests {
 
     private HANLinkedList<String> sut;
 
+    @Rule
+    public ExpectedException expectedException = ExpectedException.none();
+
     @Before
     public void setUp() {
-        sut = new HANLinkedList<String>();
+        sut = new HANLinkedList<>();
     }
 
     @Test
@@ -45,6 +50,11 @@ public class HANLinkedListTests {
     }
 
     @Test
+    public void removeFirstDoesNothingWhenListEmpty() {
+        sut.removeFirst();
+    }
+
+    @Test
     public void insertInsertsItemAtIndex() {
         sut.addFirst(ITEM2);
         sut.addFirst(ITEM1);
@@ -57,7 +67,26 @@ public class HANLinkedListTests {
     }
 
     @Test
-    public void deleteDeletsItemAtIndex() {
+    public void insertThrowsArrayIndexOutOfBoundsExceptionWhenNoItemBeforeIndex() {
+        expectedException.expect(ArrayIndexOutOfBoundsException.class);
+        sut.addFirst(ITEM2);
+        sut.addFirst(ITEM1);
+
+        sut.insert(3, ITEM3);
+    }
+
+    @Test
+    public void insertInsertsItemAfterLastItem() {
+        sut.addFirst(ITEM2);
+        sut.addFirst(ITEM1);
+
+        sut.insert(2,ITEM3);
+
+        assertEquals(ITEM3, sut.get(2));
+    }
+
+    @Test
+    public void deleteDeletesItemAtIndex() {
         sut.addFirst(ITEM3);
         sut.addFirst(ITEM2);
         sut.addFirst(ITEM1);
@@ -66,5 +95,13 @@ public class HANLinkedListTests {
 
         assertEquals(ITEM1, sut.get(0));
         assertEquals(ITEM3, sut.get(1));
+    }
+
+    @Test
+    public void deleteThrowsArrayIndexOutOfBoundsExceptionWhenIndexDoesntExist() {
+        expectedException.expect(ArrayIndexOutOfBoundsException.class);
+        sut.addFirst(ITEM1);
+
+        sut.delete(1);
     }
 }
