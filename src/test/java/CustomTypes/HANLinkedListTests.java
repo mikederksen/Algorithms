@@ -1,8 +1,10 @@
 package CustomTypes;
 
+import jdk.nashorn.internal.runtime.arrays.ArrayIndex;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.experimental.theories.suppliers.TestedOn;
 import org.junit.rules.ExpectedException;
 
 import static junit.framework.TestCase.assertEquals;
@@ -26,6 +28,29 @@ public class HANLinkedListTests {
     @Test
     public void constructorSetsSizeTo_0() {
         assertEquals(0, sut.getSize());
+    }
+
+    @Test
+    public void getThrowsArrayIndexOutOfBoundsExceptionWhenListEmpty() {
+        expectedException.expect(ArrayIndexOutOfBoundsException.class);
+
+        sut.get(0);
+    }
+
+    @Test
+    public void getThrowsArrayIndexOutOfBoundsExceptionWhenIndexDoesntExist() {
+        expectedException.expect(ArrayIndexOutOfBoundsException.class);
+
+        sut.addFirst(ITEM1);
+
+        sut.get(1);
+    }
+
+    @Test
+    public void getThrowsArrayIndexOutOfBoundsExceptionWhenIndexIsNegative() {
+        expectedException.expect(ArrayIndexOutOfBoundsException.class);
+
+        sut.get(-1);
     }
 
     @Test
@@ -111,7 +136,18 @@ public class HANLinkedListTests {
     }
 
     @Test
-    public void insertIncreasesSize() {
+    public void insertIncreasesSizeWith_1() {
+        sut.insert(0, ITEM1);
+
+        assertEquals(1, sut.getSize());
+    }
+
+    @Test
+    public void insertTwiceIncreasesSizeWith_2() {
+        sut.insert(0, ITEM1);
+        sut.insert(1, ITEM2);
+
+        assertEquals(2, sut.getSize());
     }
 
     @Test
@@ -134,6 +170,15 @@ public class HANLinkedListTests {
     }
 
     @Test
+    public void deleteDeletesFirstItem() {
+        sut.addFirst(ITEM1);
+
+        sut.delete(0);
+
+        assertEquals(0, sut.getSize());
+    }
+
+    @Test
     public void deleteDeletesItemAtIndex() {
         sut.addFirst(ITEM3);
         sut.addFirst(ITEM2);
@@ -143,6 +188,40 @@ public class HANLinkedListTests {
 
         assertEquals(ITEM1, sut.get(0));
         assertEquals(ITEM3, sut.get(1));
+    }
+
+    @Test
+    public void deleteDeletesLastItem() {
+        sut.addFirst(ITEM2);
+        sut.addFirst(ITEM1);
+
+        sut.delete(1);
+
+        assertEquals(ITEM1, sut.get(0));
+        assertEquals(1, sut.getSize());
+    }
+
+    @Test
+    public void deleteDecresesSizeWith_1() {
+        sut.addFirst(ITEM3);
+        sut.addFirst(ITEM2);
+        sut.addFirst(ITEM1);
+
+        sut.delete(1);
+
+        assertEquals(2, sut.getSize());
+    }
+
+    @Test
+    public void deleteTwiceDecresesSizeWith_2() {
+        sut.addFirst(ITEM3);
+        sut.addFirst(ITEM2);
+        sut.addFirst(ITEM1);
+
+        sut.delete(2);
+        sut.delete(1);
+
+        assertEquals(1, sut.getSize());
     }
 
     @Test

@@ -21,7 +21,7 @@ public class HANLinkedListNode<T> {
     }
 
     public void setNext(HANLinkedListNode<T> node) {
-        next = Optional.of(node);
+        next = Optional.ofNullable(node);
     }
 
     public Optional<HANLinkedListNode<T>> getNext() {

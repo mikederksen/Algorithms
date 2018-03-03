@@ -2,7 +2,7 @@ package CustomTypes;
 
 import java.util.Optional;
 
-// HANLinkedList should not be package-prive since this is a library
+// HANLinkedList should not be package-private since this is a library
 @SuppressWarnings({"WeakerAccess"})
 public class HANLinkedList<T> {
 
@@ -44,15 +44,22 @@ public class HANLinkedList<T> {
         }
 
         oldTargetNode.ifPresent(newTargetNode::setNext);
+
         size++;
     }
 
     public void delete(int index) {
-        HANLinkedListNode<T> nodeBeforeTarget = getNode(index - 1);
-        HANLinkedListNode<T> targetNode =
-                nodeBeforeTarget.getNext().orElseThrow(ArrayIndexOutOfBoundsException::new);
+        if(index == 0) {
+            removeFirst();
+        } else {
+            HANLinkedListNode<T> nodeBeforeTarget = getNode(index - 1);
+            HANLinkedListNode<T> targetNode = nodeBeforeTarget
+                    .getNext()
+                    .orElseThrow(ArrayIndexOutOfBoundsException::new);
 
-        targetNode.getNext().ifPresent(nodeBeforeTarget::setNext);
+            nodeBeforeTarget.setNext(targetNode.getNext().orElse(null));
+            size--;
+        }
     }
 
     public T get(int index) {
@@ -64,11 +71,13 @@ public class HANLinkedList<T> {
     }
 
     private HANLinkedListNode<T> getNode(int index) {
-        HANLinkedListNode<T> next = firstNode.orElseThrow(ArrayIndexOutOfBoundsException::new);
+        HANLinkedListNode<T> next = firstNode
+                .orElseThrow(ArrayIndexOutOfBoundsException::new);
 
         for (int i = 0; i < index; i++) {
-            Optional<HANLinkedListNode<T>> nextDing = next.getNext();
-            next = nextDing.orElseThrow(ArrayIndexOutOfBoundsException::new);
+            next = next
+                    .getNext()
+                    .orElseThrow(ArrayIndexOutOfBoundsException::new);
         }
 
         return next;
