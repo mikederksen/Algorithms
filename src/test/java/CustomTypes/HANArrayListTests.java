@@ -64,8 +64,14 @@ public class HANArrayListTests {
 
     @Test
     public void addCanInsert20Items() {
-        for (int i = 0; i < 20; i++) {
+        final int amount = 20;
+
+        for (int i = 0; i < amount; i++) {
             sut.add(ITEM + i);
+        }
+
+        for(int i = 0; i < amount; i++) {
+            assertEquals(ITEM + i, sut.get(i));
         }
     }
 

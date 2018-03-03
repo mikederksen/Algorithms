@@ -2,6 +2,8 @@ package CustomTypes;
 
 import java.util.Arrays;
 
+// HANLinkedList should not be package-private since this is a library
+@SuppressWarnings("WeakerAccess")
 public class HANArrayList<T> {
 
     private int counter;
