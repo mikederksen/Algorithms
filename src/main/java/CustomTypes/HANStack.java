@@ -39,7 +39,7 @@ public class HANStack<T> {
         return items.getSize();
     }
 
-    private boolean isEmpty() {
+    public boolean isEmpty() {
         return getSize() <= 0;
     }
 }
