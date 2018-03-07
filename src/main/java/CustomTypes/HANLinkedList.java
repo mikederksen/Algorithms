@@ -33,7 +33,7 @@ public class HANLinkedList<T> {
         HANLinkedListNode<T> newTargetNode = new HANLinkedListNode<>(value);
         final Optional<HANLinkedListNode<T>> oldTargetNode;
 
-        if(index == 0) {
+        if (index == 0) {
             oldTargetNode = firstNode;
             firstNode = Optional.of(newTargetNode);
         } else {
