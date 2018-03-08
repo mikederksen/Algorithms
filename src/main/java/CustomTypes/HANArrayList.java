@@ -1,7 +1,5 @@
 package CustomTypes;
 
-import com.sun.tools.javac.jvm.Items;
-
 import java.util.Arrays;
 
 // HANLinkedList should not be package-private since this is a library

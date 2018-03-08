@@ -115,4 +115,11 @@ public class HANArrayListTests {
     public void toStringDisplaysEmptyStringWhenListEmpty() {
         assertEquals("", sut.toString());
     }
+
+    @Test
+    public void toStringDisplaysItemWhenOne() {
+        sut.add(ITEM1);
+
+        assertEquals(ITEM1, sut.toString());
+    }
 }
