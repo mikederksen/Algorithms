@@ -1,10 +1,8 @@
 package CustomTypes;
 
-import jdk.nashorn.internal.runtime.arrays.ArrayIndex;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
-import org.junit.experimental.theories.suppliers.TestedOn;
 import org.junit.rules.ExpectedException;
 
 import static junit.framework.TestCase.assertEquals;
@@ -230,5 +228,28 @@ public class HANLinkedListTests {
         sut.addFirst(ITEM1);
 
         sut.delete(1);
+    }
+
+    @Test
+    public void toStringDisplaysElementsIfMultipleExist() {
+        sut.addFirst(ITEM3);
+        sut.addFirst(ITEM2);
+        sut.addFirst(ITEM1);
+
+        String expected = String.format("%s, %s, %s", ITEM1, ITEM2, ITEM3);
+
+        assertEquals(expected, sut.toString());
+    }
+
+    @Test
+    public void toStringDisplaysElementIfOneExist() {
+        sut.addFirst(ITEM1);
+
+        assertEquals(ITEM1, sut.toString());
+    }
+
+    @Test
+    public void toStringDisplaysEmptyStringIfNoneExist() {
+        assertEquals("", sut.toString());
     }
 }

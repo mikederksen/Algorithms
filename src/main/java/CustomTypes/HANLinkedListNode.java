@@ -27,4 +27,11 @@ public class HANLinkedListNode<T> {
     public Optional<HANLinkedListNode<T>> getNext() {
         return next;
     }
+
+    @Override
+    public String toString() {
+        return next
+                .map(nextNode -> String.format("%s, %s", value, nextNode))
+                .orElseGet(value::toString);
+    }
 }

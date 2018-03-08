@@ -82,4 +82,11 @@ public class HANLinkedList<T> {
 
         return next;
     }
+
+    @Override
+    public String toString() {
+        return firstNode
+                .map(HANLinkedListNode::toString)
+                .orElse("");
+    }
 }
