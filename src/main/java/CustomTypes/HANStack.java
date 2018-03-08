@@ -42,4 +42,9 @@ public class HANStack<T> {
     public boolean isEmpty() {
         return getSize() <= 0;
     }
+
+    @Override
+    public String toString() {
+        return items.toString();
+    }
 }

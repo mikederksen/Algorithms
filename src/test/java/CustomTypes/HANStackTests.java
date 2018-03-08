@@ -6,7 +6,6 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import java.util.EmptyStackException;
-import java.util.Stack;
 
 import static junit.framework.TestCase.assertEquals;
 
@@ -103,5 +102,29 @@ public class HANStackTests {
         expectedException.expect(EmptyStackException.class);
 
         sut.pop();
+    }
+
+
+    @Test
+    public void toStringDisplaysElementsIfMultipleExist() {
+        sut.push(ITEM3);
+        sut.push(ITEM2);
+        sut.push(ITEM1);
+
+        String expected = String.format("%s, %s, %s", ITEM1, ITEM2, ITEM3);
+
+        assertEquals(expected, sut.toString());
+    }
+
+    @Test
+    public void toStringDisplaysElementIfOneExist() {
+        sut.push(ITEM1);
+
+        assertEquals(ITEM1, sut.toString());
+    }
+
+    @Test
+    public void toStringDisplaysEmptyStringIfNoneExist() {
+        assertEquals("", sut.toString());
     }
 }
