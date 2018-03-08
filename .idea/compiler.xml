@@ -7,12 +7,10 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="Algorithms" />
-        <module name="han" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="Algorithms" target="1.8" />
-      <module name="han" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
