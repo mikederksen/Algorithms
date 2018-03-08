@@ -9,7 +9,9 @@ import static junit.framework.TestCase.assertEquals;
 
 public class HANArrayListTests {
 
-    private static final String ITEM = "Something";
+    private static final String ITEM1 = "Something";
+    private static final String ITEM2 = "Something else";
+    private static final String ITEM3 = "Another something else";
 
     private HANArrayList<String> sut;
 
@@ -23,34 +25,34 @@ public class HANArrayListTests {
 
     @Test
     public void getRetrievesAddedItem() {
-        sut.add(ITEM);
+        sut.add(ITEM1);
 
-        assertEquals(ITEM, sut.get(0));
+        assertEquals(ITEM1, sut.get(0));
     }
 
     @Test
     public void getRetrievesLastItemWhenMultipleAdded() {
-        sut.add("Something else");
-        sut.add("Another something else");
-        sut.add(ITEM);
+        sut.add(ITEM2);
+        sut.add(ITEM3);
+        sut.add(ITEM1);
 
-        assertEquals(ITEM, sut.get(2));
+        assertEquals(ITEM1, sut.get(2));
     }
 
     @Test
     public void getRetrievesItemAtIndexWhenMultipleAddded() {
-        sut.add("Something else");
-        sut.add(ITEM);
-        sut.add("Another something else");
+        sut.add(ITEM2);
+        sut.add(ITEM1);
+        sut.add(ITEM3);
 
-        assertEquals(ITEM, sut.get(1));
+        assertEquals(ITEM1, sut.get(1));
     }
 
     @Test
     public void getThrowsIndexOutOfBoundsExceptionWhenIndexDoesntExist() {
         expectedException.expect(IndexOutOfBoundsException.class);
 
-        sut.add(ITEM);
+        sut.add(ITEM1);
 
         sut.get(1);
     }
@@ -67,28 +69,28 @@ public class HANArrayListTests {
         final int amount = 20;
 
         for (int i = 0; i < amount; i++) {
-            sut.add(ITEM + i);
+            sut.add(ITEM1 + i);
         }
 
         for(int i = 0; i < amount; i++) {
-            assertEquals(ITEM + i, sut.get(i));
+            assertEquals(ITEM1 + i, sut.get(i));
         }
     }
 
     @Test
     public void setInsertsItemAtIndex() {
-        sut.add("Something else");
-        sut.set(0, ITEM);
+        sut.add(ITEM2);
+        sut.set(0, ITEM1);
 
-        assertEquals(ITEM, sut.get(0));
+        assertEquals(ITEM1, sut.get(0));
     }
 
     @Test
     public void setThrowsArrayIndexOutOfBoundsExceptionWhenIndexNotInList() {
         expectedException.expect(ArrayIndexOutOfBoundsException.class);
 
-        sut.add("Something else");
-        sut.set(1, ITEM);
+        sut.add(ITEM2);
+        sut.set(1, ITEM1);
     }
 
     @Test
@@ -96,5 +98,21 @@ public class HANArrayListTests {
         expectedException.expect(ArrayIndexOutOfBoundsException.class);
 
         sut.get(-1);
+    }
+
+    @Test
+    public void toStringDisplaysShowsAllItemsWhenMultiple() {
+        sut.add(ITEM1);
+        sut.add(ITEM2);
+        sut.add(ITEM3);
+
+        String expected = String.format("%s, %s, %s", ITEM1, ITEM2, ITEM3);
+
+        assertEquals(expected, sut.toString());
+    }
+
+    @Test
+    public void toStringDisplaysEmptyStringWhenListEmpty() {
+        assertEquals("", sut.toString());
     }
 }

@@ -1,5 +1,7 @@
 package CustomTypes;
 
+import com.sun.tools.javac.jvm.Items;
+
 import java.util.Arrays;
 
 // HANLinkedList should not be package-private since this is a library
@@ -45,5 +47,20 @@ public class HANArrayList<T> {
 
     private boolean isOutOfBounds(int index) {
         return index > counter - 1;
+    }
+
+    @Override
+    public String toString() {
+        if(counter == 0) {
+            return "";
+        }
+
+        String result = items[0].toString();
+
+        for (int i = 1; i < counter; i++) {
+            result += String.format(", %s", items[i].toString());
+        }
+
+        return result;
     }
 }

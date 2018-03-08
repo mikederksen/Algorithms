@@ -70,8 +70,14 @@ public class Balance {
 
     private void checkMatch(Symbol openSymbol, Symbol closeSym) {
         if (hasNoCloseSymbol(openSymbol, closeSym)) {
-            System.out.println("Found %c on line %d; does not match %c on line %d");
-            errors++;`
+            System.out.println(String.format(
+                    "Found %c on line %d; does not match %c on line %d",
+                    openSymbol.token,
+                    openSymbol.line,
+                    closeSym.token,
+                    closeSym.line));
+
+            errors++;
         }
     }
 

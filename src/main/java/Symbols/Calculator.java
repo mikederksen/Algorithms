@@ -11,10 +11,14 @@ public class Calculator {
         if (args.length == 0) {
             p = new Balance(new InputStreamReader(System.in));
 
+            System.out.println("Now calculating...");
+
             if (p.checkBalance() == 0) {
                 System.out.println("No errors!");
 
                 return;
+            } else {
+                System.out.println("Kapoet");
             }
         }
 
@@ -41,7 +45,6 @@ public class Calculator {
                     // Swallow
                 }
             }
-
         }
     }
 }
