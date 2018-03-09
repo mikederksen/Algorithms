@@ -10,7 +10,7 @@ import java.util.EmptyStackException;
 import static junit.framework.TestCase.assertEquals;
 
 @SuppressWarnings("Duplicates")
-public class HANStackTests {
+public class HANArrayStackTests {
     private static final String ITEM1 = "Something";
     private static final String ITEM2 = "Something else";
     private static final String ITEM3 = "Another something else";
@@ -18,38 +18,38 @@ public class HANStackTests {
     @Rule
     public ExpectedException expectedException = ExpectedException.none();
 
-    private HANStack<String> sut;
+    private HANArrayStack<String> sut;
 
     @Before
     public void setUp() {
-        sut = new HANStack<>();
+        sut = new HANArrayStack<>();
     }
 
     @Test
     public void constructorSetsSizeTo_0() {
-        assertEquals(0, sut.getSize());
+        assertEquals(0, sut.size());
     }
 
     @Test
-    public void pushAddsItemToTop() {
+    public void pushAddsItemToPeek() {
         sut.push(ITEM1);
 
-        assertEquals(ITEM1, sut.top());
+        assertEquals(ITEM1, sut.peek());
     }
 
     @Test
-    public void pushMultipleAddsLastItemToTop() {
+    public void pushMultipleAddsLastItemToPeek() {
         sut.push(ITEM1);
         sut.push(ITEM2);
 
-        assertEquals(ITEM2, sut.top());
+        assertEquals(ITEM2, sut.peek());
     }
 
     @Test
     public void pushIncreasesSize() {
         sut.push(ITEM1);
 
-        assertEquals(1, sut.getSize());
+        assertEquals(1, sut.size());
     }
 
     @Test
@@ -57,7 +57,7 @@ public class HANStackTests {
         sut.push(ITEM1);
         sut.push(ITEM2);
 
-        assertEquals(2, sut.getSize());
+        assertEquals(2, sut.size());
     }
 
     @Test
@@ -66,7 +66,7 @@ public class HANStackTests {
         sut.push(ITEM2);
 
         assertEquals(ITEM2, sut.pop());
-        assertEquals(ITEM1, sut.top());
+        assertEquals(ITEM1, sut.peek());
     }
 
     @Test
@@ -76,7 +76,7 @@ public class HANStackTests {
 
         sut.pop();
 
-        assertEquals(1, sut.getSize());
+        assertEquals(1, sut.size());
     }
 
     @Test
@@ -88,14 +88,14 @@ public class HANStackTests {
         sut.pop();
         sut.pop();
 
-        assertEquals(1, sut.getSize());
+        assertEquals(1, sut.size());
     }
 
     @Test
-    public void topThrowsEmptyStackExceptionWhenEmpty() {
+    public void peekThrowsEmptyStackExceptionWhenEmpty() {
         expectedException.expect(EmptyStackException.class);
 
-        sut.top();
+        sut.peek();
     }
 
     @Test
@@ -105,12 +105,11 @@ public class HANStackTests {
         sut.pop();
     }
 
-
     @Test
     public void toStringDisplaysElementsIfMultipleExist() {
-        sut.push(ITEM3);
-        sut.push(ITEM2);
         sut.push(ITEM1);
+        sut.push(ITEM2);
+        sut.push(ITEM3);
 
         String expected = String.format("[%s, %s, %s]", ITEM1, ITEM2, ITEM3);
 

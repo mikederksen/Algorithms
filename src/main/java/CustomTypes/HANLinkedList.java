@@ -85,8 +85,10 @@ public class HANLinkedList<T> {
 
     @Override
     public String toString() {
-        return firstNode
+        String nodesToString = firstNode
                 .map(HANLinkedListNode::toString)
                 .orElse("");
+
+        return String.format("[%s]", nodesToString);
     }
 }

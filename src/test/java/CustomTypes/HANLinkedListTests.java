@@ -236,7 +236,7 @@ public class HANLinkedListTests {
         sut.addFirst(ITEM2);
         sut.addFirst(ITEM1);
 
-        String expected = String.format("%s, %s, %s", ITEM1, ITEM2, ITEM3);
+        String expected = String.format("[%s, %s, %s]", ITEM1, ITEM2, ITEM3);
 
         assertEquals(expected, sut.toString());
     }
@@ -245,11 +245,11 @@ public class HANLinkedListTests {
     public void toStringDisplaysElementIfOneExist() {
         sut.addFirst(ITEM1);
 
-        assertEquals(ITEM1, sut.toString());
+        assertEquals(String.format("[%s]", ITEM1), sut.toString());
     }
 
     @Test
     public void toStringDisplaysEmptyStringIfNoneExist() {
-        assertEquals("", sut.toString());
+        assertEquals("[]", sut.toString());
     }
 }
