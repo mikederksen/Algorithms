@@ -106,20 +106,20 @@ public class HANArrayListTests {
         sut.add(ITEM2);
         sut.add(ITEM3);
 
-        String expected = String.format("%s, %s, %s", ITEM1, ITEM2, ITEM3);
+        String expected = String.format("[%s, %s, %s]", ITEM1, ITEM2, ITEM3);
 
         assertEquals(expected, sut.toString());
     }
 
     @Test
     public void toStringDisplaysEmptyStringWhenListEmpty() {
-        assertEquals("", sut.toString());
+        assertEquals("[]", sut.toString());
     }
 
     @Test
     public void toStringDisplaysItemWhenOne() {
         sut.add(ITEM1);
 
-        assertEquals(ITEM1, sut.toString());
+        assertEquals(String.format("[%s]", ITEM1), sut.toString());
     }
 }

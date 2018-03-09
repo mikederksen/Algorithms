@@ -106,6 +106,16 @@ public class HANArrayStackTests {
     }
 
     @Test
+    public void clearClearsStack() {
+        expectedException.expect(EmptyStackException.class);
+
+        sut.push(ITEM1);
+
+        sut.clear();
+        sut.peek();
+    }
+
+    @Test
     public void toStringDisplaysElementsIfMultipleExist() {
         sut.push(ITEM1);
         sut.push(ITEM2);

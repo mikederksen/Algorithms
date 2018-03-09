@@ -50,7 +50,7 @@ public class HANArrayList<T> {
     @Override
     public String toString() {
         if(counter == 0) {
-            return "";
+            return "[]";
         }
 
         String result = items[0].toString();
@@ -59,6 +59,6 @@ public class HANArrayList<T> {
             result += String.format(", %s", items[i].toString());
         }
 
-        return result;
+        return String.format("[%s]", result);
     }
 }
