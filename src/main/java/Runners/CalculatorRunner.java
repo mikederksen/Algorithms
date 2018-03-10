@@ -1,10 +1,12 @@
-package Symbols;
+package Runners;
+
+import Symbols.Balance;
 
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-public class Calculator {
+public class CalculatorRunner {
     public static void main(String[] args) {
         Balance p;
 
