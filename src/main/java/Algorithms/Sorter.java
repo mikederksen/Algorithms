@@ -91,7 +91,50 @@ public class Sorter {
         }
 
         List<T> sortedItems = new ArrayList<>(input);
+        quickSort(sortedItems, 0, sortedItems.size() - 1);
 
         return sortedItems;
+    }
+
+    private static <T extends Comparable<T>> void quickSort(List<T> arr, int low, int high) {
+        if (arr == null || arr.size() == 0) {
+            return;
+        }
+
+        if (low >= high) {
+            return;
+        }
+
+        int middle = low + (high - low) / 2;
+        T pivot = arr.get(middle);
+
+        int i = low;
+        int j = high;
+
+        while (i <= j) {
+            while (arr.get(i).compareTo(pivot) < 0) {
+                i++;
+            }
+
+            while (arr.get(j).compareTo(pivot) > 0) {
+                j--;
+            }
+
+            if (i <= j) {
+                T temp = arr.get(i);
+                arr.set(i, arr.get(j));
+                arr.set(j, temp);
+                i++;
+                j--;
+            }
+        }
+
+        if (low < j) {
+            quickSort(arr, low, j);
+        }
+
+        if (high > i) {
+            quickSort(arr, i, high);
+        }
     }
 }
