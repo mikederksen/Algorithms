@@ -1,13 +1,14 @@
 package Algorithms;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Sorter {
 
     private static final String INPUT_NOT_NULL_EXCEPTION = "input should not be null";
 
-    public static <T extends Comparable<T>> List insertionSort(List<T> input) {
+    public static <T extends Comparable<? super T>> List insertionSort(List<T> input) {
         if (input == null) {
             throw new IllegalArgumentException(INPUT_NOT_NULL_EXCEPTION);
         }
@@ -50,7 +51,7 @@ public class Sorter {
         return sortedItems;
     }
 
-    public static <T extends Comparable<T>> List selectionSort(List<T> input) {
+    public static <T extends Comparable<? super T>> List selectionSort(List<T> input) {
         if (input == null) {
             throw new IllegalArgumentException(INPUT_NOT_NULL_EXCEPTION);
         }
@@ -75,35 +76,33 @@ public class Sorter {
         return sortedItems;
     }
 
-    public static <T extends Comparable<T>> List mergeSort(List<T> input) {
+    public static <T extends Comparable<? super T>> List mergeSort(List<T> input) {
         if (input == null) {
             throw new IllegalArgumentException(INPUT_NOT_NULL_EXCEPTION);
         }
 
         List<T> sortedItems = new ArrayList<>(input);
+        List<T> helper = new ArrayList<>();
+
+        mergeSort(sortedItems, helper, 0, input.size());
 
         return sortedItems;
     }
 
-
-
-
-
-    private static <T extends Comparable<T>> void mergesort(List<T> input, int low, int high) {
+    private static <T extends Comparable<? super T>> void mergeSort(List<T> input, List<T> helper, int low, int high) {
         if (low < high) {
             int middle = low + (high - low) / 2;
 
-            mergesort(input, low, middle);
-            mergesort(input, middle + 1, high);
-            merge(input, low, middle, high);
+            mergeSort(input, helper, low, middle);
+            mergeSort(input, helper, middle + 1, high);
+            merge(input, helper, low, middle, high);
         }
     }
 
-    private static <T extends Comparable<T>> void merge(List<T> input, int low, int middle, int high) {
-
+    private static <T extends Comparable<? super T>> void merge(List<T> input, List<T> helper, int low, int middle, int high) {
         // Copy both parts into the helper array
         for (int i = low; i <= high; i++) {
-            helper[i] = numbers[i];
+            helper.set(i, input.get(i));
         }
 
         int i = low;
@@ -112,18 +111,18 @@ public class Sorter {
         // Copy the smallest values from either the left or the right side back
         // to the original array
         while (i <= middle && j <= high) {
-            if (helper[i] <= helper[j]) {
-                numbers[k] = helper[i];
+            if (helper.get(i).compareTo(helper.get(j)) <= 0) {
+                input.set(k, helper.get(i));
                 i++;
             } else {
-                numbers[k] = helper[j];
+                input.set(k, helper.get(j));
                 j++;
             }
             k++;
         }
         // Copy the rest of the left side of the array into the target array
         while (i <= middle) {
-            numbers[k] = helper[i];
+            input.set(k, helper.get(i));
             k++;
             i++;
         }
@@ -132,10 +131,7 @@ public class Sorter {
 
     }
 
-
-
-
-    public static <T extends Comparable<T>> List quickSort(List<T> input) {
+    public static <T extends Comparable<? super T>> List quickSort(List<T> input) {
         if (input == null) {
             throw new IllegalArgumentException(INPUT_NOT_NULL_EXCEPTION);
         }
@@ -146,20 +142,7 @@ public class Sorter {
         return sortedItems;
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-    private static <T extends Comparable<T>> void quickSort(List<T> arr, int low, int high) {
+    private static <T extends Comparable<? super T>> void quickSort(List<T> arr, int low, int high) {
         if (arr == null || arr.size() == 0) {
             return;
         }
