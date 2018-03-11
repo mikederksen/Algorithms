@@ -32,4 +32,9 @@ public class HANFCNSTreeNode<T> {
     public T getValue() {
         return value;
     }
+
+    @Override
+    public String toString() {
+        return "";
+    }
 }
