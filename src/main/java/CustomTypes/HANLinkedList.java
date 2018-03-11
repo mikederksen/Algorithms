@@ -3,7 +3,7 @@ package CustomTypes;
 import java.util.Optional;
 
 // HANLinkedList should not be package-private since this is a library
-@SuppressWarnings({"WeakerAccess"})
+@SuppressWarnings({ "WeakerAccess" })
 public class HANLinkedList<T> {
 
     private Optional<HANLinkedListNode<T>> firstNode;
@@ -23,7 +23,7 @@ public class HANLinkedList<T> {
     }
 
     public void removeFirst() {
-        firstNode.ifPresent(currentFirst ->{
+        firstNode.ifPresent(currentFirst -> {
             firstNode = currentFirst.getNext();
             size--;
         });
@@ -49,7 +49,7 @@ public class HANLinkedList<T> {
     }
 
     public void delete(int index) {
-        if(index == 0) {
+        if (index == 0) {
             removeFirst();
         } else {
             HANLinkedListNode<T> nodeBeforeTarget = getNode(index - 1);

@@ -1,17 +1,15 @@
 package Trees;
 
-
 public class HANBinaryNode<T extends Comparable<? super T>> extends HANBinaryTree<T> {
     private T _value;
     private HANBinaryTree<T> _left;
     private HANBinaryTree<T> _right;
 
-    public HANBinaryNode(T value){
-        this(value, new HANBinaryEmpty<>(),  new HANBinaryEmpty<>());
+    public HANBinaryNode(T value) {
+        this(value, new HANBinaryEmpty<>(), new HANBinaryEmpty<>());
     }
 
-    public HANBinaryNode(T value, HANBinaryTree<T> left, HANBinaryTree<T> right)
-    {
+    public HANBinaryNode(T value, HANBinaryTree<T> left, HANBinaryTree<T> right) {
         _value = value;
         _left = left;
         _right = right;
@@ -29,30 +27,22 @@ public class HANBinaryNode<T extends Comparable<? super T>> extends HANBinaryTre
 
     @Override
     public HANBinaryTree<T> add(T value) {
-        if(value.compareTo(_value) == 0)
-        {
+        if (value.compareTo(_value) == 0) {
             return this;
-        }
-        else if (value.compareTo(_value) < 0)
-        {
+        } else if (value.compareTo(_value) < 0) {
             return new HANBinaryNode<T>(value, _left.add(value), _right);
-        }
-        else {
+        } else {
             return new HANBinaryNode<T>(value, _left, _right.add(value));
         }
     }
 
     @Override
     public boolean contains(T value) {
-        if(value.compareTo(_value) == 0)
-        {
+        if (value.compareTo(_value) == 0) {
             return true;
-        }
-        else if(value.compareTo(_value) < 0)
-        {
+        } else if (value.compareTo(_value) < 0) {
             return _left.contains(value);
-        }
-        else {
+        } else {
             return _right.contains(value);
         }
     }

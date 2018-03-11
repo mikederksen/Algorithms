@@ -83,7 +83,7 @@ public class Balance {
 
     private boolean hasNoCloseSymbol(Symbol openSymbol, Symbol closeSymbol) {
         return openSymbol.token == '(' && closeSymbol.token != ')' ||
-               openSymbol.token == '[' && closeSymbol.token != ']' ||
-               openSymbol.token == '{' && closeSymbol.token != '}';
+                openSymbol.token == '[' && closeSymbol.token != ']' ||
+                openSymbol.token == '{' && closeSymbol.token != '}';
     }
 }

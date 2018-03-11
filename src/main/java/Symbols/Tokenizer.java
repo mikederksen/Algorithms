@@ -32,13 +32,13 @@ public class Tokenizer {
     }
 
     public char getNextOpenClose() {
-        while(nextChar()) {
-            if(currentChar == '/') {
+        while (nextChar()) {
+            if (currentChar == '/') {
                 processSlash();
             } else if (currentChar == '\'' || currentChar == '"') {
                 skipQuote(currentChar);
             } else if (currentChar == '(' || currentChar == '[' || currentChar == '{' ||
-                       currentChar == ')' || currentChar == ']' || currentChar == '}') {
+                    currentChar == ')' || currentChar == ']' || currentChar == '}') {
                 return currentChar;
             }
         }
@@ -71,7 +71,7 @@ public class Tokenizer {
     }
 
     private void putBackChar() {
-        if(currentChar == NEW_LINE) {
+        if (currentChar == NEW_LINE) {
             currentLine--;
         }
 
@@ -83,8 +83,8 @@ public class Tokenizer {
     }
 
     private void skipComment(int start) {
-        if(start == SLASH_SLASH) {
-            while( nextChar( ) && ( currentChar != '\n' ) )
+        if (start == SLASH_SLASH) {
+            while (nextChar() && (currentChar != '\n'))
                 ;
 
             return;
@@ -92,8 +92,8 @@ public class Tokenizer {
 
         boolean state = false;
 
-        while(nextChar()) {
-            if(state && currentChar == '/') {
+        while (nextChar()) {
+            if (state && currentChar == '/') {
                 return;
             }
 
@@ -106,12 +106,12 @@ public class Tokenizer {
     }
 
     private void skipQuote(char quoteType) {
-        while(nextChar()) {
-            if(currentChar == quoteType) {
+        while (nextChar()) {
+            if (currentChar == quoteType) {
                 return;
             }
 
-            if(currentChar == NEW_LINE) {
+            if (currentChar == NEW_LINE) {
                 numOfErrors++;
                 System.out.println(String.format(
                         "Missing closed quote at line %s",
@@ -123,9 +123,9 @@ public class Tokenizer {
     }
 
     private void processSlash() {
-        if(nextChar()) {
-            if(currentChar == '*') {
-                if(nextChar() && currentChar != '*') {
+        if (nextChar()) {
+            if (currentChar == '*') {
+                if (nextChar() && currentChar != '*') {
                     putBackChar();
                 }
 

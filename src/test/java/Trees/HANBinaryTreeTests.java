@@ -23,9 +23,9 @@ public class HANBinaryTreeTests {
 
         assertEquals(1, depth);
     }
+
     @Test
-    public void treeWith5and3HasDepth2()
-    {
+    public void treeWith5and3HasDepth2() {
         HANBinaryTree<Integer> tree = new HANBinaryEmpty<Integer>().add(5).add(3);
 
         int depth = tree.getDepth();
@@ -34,8 +34,7 @@ public class HANBinaryTreeTests {
     }
 
     @Test
-    public void treeWith5and3and8HasDepth2()
-    {
+    public void treeWith5and3and8HasDepth2() {
         HANBinaryTree<Integer> tree = new HANBinaryEmpty<Integer>().add(5).add(3).add(8);
 
         int depth = tree.getDepth();
@@ -44,8 +43,7 @@ public class HANBinaryTreeTests {
     }
 
     @Test
-    public void treeWith5and8HasDepth2()
-    {
+    public void treeWith5and8HasDepth2() {
         HANBinaryTree<Integer> tree = new HANBinaryEmpty<Integer>().add(5).add(8);
 
         int depth = tree.getDepth();
@@ -54,8 +52,7 @@ public class HANBinaryTreeTests {
     }
 
     @Test
-    public void treeWith5and3and1HasDepth3()
-    {
+    public void treeWith5and3and1HasDepth3() {
         HANBinaryTree<Integer> tree = new HANBinaryEmpty<Integer>().add(5).add(3).add(1);
 
         int depth = tree.getDepth();
@@ -64,8 +61,7 @@ public class HANBinaryTreeTests {
     }
 
     @Test
-    public void treeWith5and5HasDepth1()
-    {
+    public void treeWith5and5HasDepth1() {
         HANBinaryTree<Integer> tree = new HANBinaryEmpty<Integer>().add(5).add(5);
 
         int depth = tree.getDepth();
@@ -74,8 +70,7 @@ public class HANBinaryTreeTests {
     }
 
     @Test
-    public void emptyTreeHasCount0()
-    {
+    public void emptyTreeHasCount0() {
         HANBinaryTree<Integer> tree = new HANBinaryEmpty<Integer>();
 
         int count = tree.getCount();
@@ -84,8 +79,7 @@ public class HANBinaryTreeTests {
     }
 
     @Test
-    public void treeWith5HasCount1()
-    {
+    public void treeWith5HasCount1() {
         HANBinaryTree<Integer> tree = new HANBinaryEmpty<Integer>().add(5);
 
         int count = tree.getCount();
@@ -94,8 +88,7 @@ public class HANBinaryTreeTests {
     }
 
     @Test
-    public void treeWith5and3and8HasCount3()
-    {
+    public void treeWith5and3and8HasCount3() {
         HANBinaryTree<Integer> tree = new HANBinaryEmpty<Integer>().add(5).add(3).add(8);
 
         int count = tree.getCount();
@@ -104,8 +97,7 @@ public class HANBinaryTreeTests {
     }
 
     @Test
-    public void emptyTreeDoesNotContains5()
-    {
+    public void emptyTreeDoesNotContains5() {
         HANBinaryTree<Integer> tree = new HANBinaryEmpty<Integer>();
 
         boolean result = tree.contains(5);
@@ -114,8 +106,7 @@ public class HANBinaryTreeTests {
     }
 
     @Test
-    public void treeWith5Contains5()
-    {
+    public void treeWith5Contains5() {
         HANBinaryTree<Integer> tree = new HANBinaryEmpty<Integer>().add(5);
 
         boolean result = tree.contains(5);
@@ -124,8 +115,7 @@ public class HANBinaryTreeTests {
     }
 
     @Test
-    public void treeWith5and3and8Contains8()
-    {
+    public void treeWith5and3and8Contains8() {
         HANBinaryTree<Integer> tree = new HANBinaryEmpty<Integer>().add(5).add(3).add(8);
 
         boolean result = tree.contains(8);
@@ -134,8 +124,7 @@ public class HANBinaryTreeTests {
     }
 
     @Test
-    public void treeWith5and3and8DoesNotContain7()
-    {
+    public void treeWith5and3and8DoesNotContain7() {
         HANBinaryTree<Integer> tree = new HANBinaryEmpty<Integer>().add(5).add(3).add(8);
 
         boolean result = tree.contains(7);

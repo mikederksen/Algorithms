@@ -49,7 +49,7 @@ public class HANArrayList<T> {
 
     @Override
     public String toString() {
-        if(counter == 0) {
+        if (counter == 0) {
             return "[]";
         }
 

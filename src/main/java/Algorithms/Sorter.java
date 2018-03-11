@@ -173,7 +173,6 @@ public class Sorter {
         }
     }
 
-
     public static <T extends Comparable<? super T>> List<T> quickSort(List<T> input) {
         if (input == null) {
             throw new IllegalArgumentException(INPUT_NOT_NULL_EXCEPTION);

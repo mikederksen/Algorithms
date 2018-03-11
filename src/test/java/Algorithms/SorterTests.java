@@ -55,7 +55,6 @@ public class SorterTests {
         assertTrue(items != Sorter.insertionSort(items));
     }
 
-
     @Test
     public void bubbleSortSortsMultipleItems() {
         assertThat(Sorter.bubbleSort(items), is(sortedItems));
@@ -79,7 +78,6 @@ public class SorterTests {
     public void bubbleSortReturnsNewInstance() {
         assertTrue(items != Sorter.bubbleSort(items));
     }
-
 
     @Test
     public void selectionSortSortsMultipleItems() {
@@ -105,7 +103,6 @@ public class SorterTests {
         assertTrue(items != Sorter.selectionSort(items));
     }
 
-
     @Test
     public void mergeSortSortsMultipleItems() {
         assertThat(Sorter.mergeSort(items), is(sortedItems));
@@ -130,7 +127,6 @@ public class SorterTests {
         assertTrue(items != Sorter.mergeSort(items));
     }
 
-
     @Test
     public void quickSortSortsMultipleItems() {
         assertThat(Sorter.quickSort(items), is(sortedItems));
@@ -154,7 +150,6 @@ public class SorterTests {
     public void quickSortReturnsNewInstance() {
         assertTrue(items != Sorter.quickSort(items));
     }
-
 
     private static <T extends Comparable<? super T>> List<T> sort(List<T> input) {
         List<T> sortedItems = new ArrayList<>(input);

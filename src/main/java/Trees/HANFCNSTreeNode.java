@@ -14,7 +14,7 @@ public class HANFCNSTreeNode<T> {
     }
 
     private void addSibling(T value) {
-        if(sibling != null) {
+        if (sibling != null) {
             sibling.addSibling(value);
         } else {
             sibling = new HANFCNSTreeNode<>(value);
@@ -22,7 +22,7 @@ public class HANFCNSTreeNode<T> {
     }
 
     public void addChild(T value) {
-        if(child != null) {
+        if (child != null) {
             child.addSibling(value);
         } else {
             child = new HANFCNSTreeNode<>(value);

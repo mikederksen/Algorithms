@@ -17,7 +17,7 @@ public class TowersOfHanoi {
         towers.put('B', new HANStack<>());
         towers.put('C', new HANStack<>());
 
-        for(int i = amount; i > 0; i--) {
+        for (int i = amount; i > 0; i--) {
             towers.get('A').push(i);
         }
 
@@ -29,7 +29,7 @@ public class TowersOfHanoi {
     }
 
     private void moveDisk(int topN, char from, char inter, char to) {
-        if(topN == 1) {
+        if (topN == 1) {
             System.out.println(String.format("Disk 1 from %c to %c", from, to));
             towers.get(to).push(towers.get(from).pop());
             printTowers();

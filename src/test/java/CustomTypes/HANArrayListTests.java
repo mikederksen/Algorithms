@@ -72,7 +72,7 @@ public class HANArrayListTests {
             sut.add(ITEM1 + i);
         }
 
-        for(int i = 0; i < amount; i++) {
+        for (int i = 0; i < amount; i++) {
             assertEquals(ITEM1 + i, sut.get(i));
         }
     }

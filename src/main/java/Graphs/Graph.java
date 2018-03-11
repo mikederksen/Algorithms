@@ -22,8 +22,7 @@ public class Graph {
 
         Vertex start = vertexMap.get(startName);
 
-        if(start == null)
-        {
+        if (start == null) {
             throw new NoSuchElementException("Start vertex not found");
         }
 
@@ -31,17 +30,14 @@ public class Graph {
         q.add(start);
         start.dist = 0;
 
-        while(!q.isEmpty())
-        {
+        while (!q.isEmpty()) {
             Vertex v = q.remove();
 
-            for(Edge e: v.adj)
-            {
+            for (Edge e : v.adj) {
                 Vertex w = e.dest;
 
-                if(w.dist == INFINITY)
-                {
-                    w.dist = v.dist +1;
+                if (w.dist == INFINITY) {
+                    w.dist = v.dist + 1;
                     w.prev = v;
                     q.add(w);
                 }
@@ -53,8 +49,7 @@ public class Graph {
         PriorityQueue<Path> pq = new PriorityQueue<Path>();
 
         Vertex start = vertexMap.get(startName);
-        if(start == null)
-        {
+        if (start == null) {
             throw new NoSuchElementException("Start vertex not found");
         }
 
@@ -63,29 +58,25 @@ public class Graph {
         start.dist = 0;
 
         int nodesSeen = 0;
-        while( !pq.isEmpty() && nodesSeen < vertexMap.size())
-        {
+        while (!pq.isEmpty() && nodesSeen < vertexMap.size()) {
             Path vrec = pq.remove();
             Vertex v = vrec.dest;
-            if(v.scratch != 0) // already processed v
+            if (v.scratch != 0) // already processed v
             {
                 continue;
             }
 
             v.scratch = 1;
-            nodesSeen ++;
+            nodesSeen++;
 
-            for (Edge e: v.adj)
-            {
+            for (Edge e : v.adj) {
                 Vertex w = e.dest;
                 double cvw = e.cost;
 
-                if(cvw < 0)
-                {
+                if (cvw < 0) {
                     throw new GraphException("Graph has negative edges");
                 }
-                if(w.dist > v.dist + cvw)
-                {
+                if (w.dist > v.dist + cvw) {
                     w.dist = v.dist + cvw;
                     w.prev = v;
                     pq.add(new Path(w, w.dist));
@@ -98,39 +89,32 @@ public class Graph {
         clearAll();
 
         Vertex start = vertexMap.get(startName);
-        if(start == null)
-        {
+        if (start == null) {
             throw new NoSuchElementException("Start vertex not found");
         }
 
         Queue<Vertex> q = new LinkedList<Vertex>();
         q.add(start);
         start.dist = 0;
-        start.scratch ++;
+        start.scratch++;
 
-        while (!q.isEmpty())
-        {
+        while (!q.isEmpty()) {
             Vertex v = q.remove();
-            if(v.scratch++ > 2 * vertexMap.size())
-            {
+            if (v.scratch++ > 2 * vertexMap.size()) {
                 throw new GraphException("Negative cycle detected");
             }
 
-            for(Edge e : v.adj)
-            {
+            for (Edge e : v.adj) {
                 Vertex w = e.dest;
                 double cvw = e.cost;
 
-                if(w.dist > v.dist + cvw)
-                {
+                if (w.dist > v.dist + cvw) {
                     w.dist = v.dist + cvw;
                     w.prev = v;
                     // Enqueue only if not already on queue
-                    if(w.scratch ++ % 2 == 0)
-                    {
+                    if (w.scratch++ % 2 == 0) {
                         q.add(w);
-                    }
-                    else {
+                    } else {
                         w.scratch--; // undo the qneueue increment
                     }
                 }
@@ -140,8 +124,7 @@ public class Graph {
 
     public void acyclic(String startName) {
         Vertex start = vertexMap.get(startName);
-        if(start == null)
-        {
+        if (start == null) {
             throw new NoSuchElementException("Start vertex not found");
         }
 
@@ -151,59 +134,48 @@ public class Graph {
 
         // Compute the indegrees
         Collection<Vertex> vertexSet = vertexMap.values();
-        for(Vertex v : vertexSet)
-        {
-            for(Edge e: v.adj)
-            {
+        for (Vertex v : vertexSet) {
+            for (Edge e : v.adj) {
                 e.dest.scratch++;
             }
         }
 
         // Enqueue vertices of indegree zero
-        for (Vertex v: vertexSet)
-        {
-            if(v.scratch == 0)
-            {
+        for (Vertex v : vertexSet) {
+            if (v.scratch == 0) {
                 q.add(v);
             }
         }
 
         int iterations;
-        for(iterations = 0; !q.isEmpty(); iterations++)
-        {
+        for (iterations = 0; !q.isEmpty(); iterations++) {
             Vertex v = q.remove();
 
-            for(Edge e : v.adj)
-            {
+            for (Edge e : v.adj) {
                 Vertex w = e.dest;
                 double cvw = e.cost;
 
-                if(--w.scratch == 0)
-                {
+                if (--w.scratch == 0) {
                     q.add(w);
                 }
-                if(v.dist == INFINITY)
-                {
+                if (v.dist == INFINITY) {
                     continue;
                 }
-                if(w.dist > v.dist + cvw)
-                {
+                if (w.dist > v.dist + cvw) {
                     w.dist = v.dist + cvw;
                     w.prev = v;
                 }
             }
         }
 
-        if(iterations != vertexMap.size())
-        {
+        if (iterations != vertexMap.size()) {
             throw new GraphException("Graph has a cycle!");
         }
     }
 
     private Vertex getVertex(String vertexName) {
         Vertex v = vertexMap.get(vertexName);
-        if(v == null)
-        {
+        if (v == null) {
             v = new Vertex(vertexName);
             vertexMap.put(vertexName, v);
         }
@@ -212,18 +184,15 @@ public class Graph {
 
     public boolean isConnected() {
         for (Vertex vertex : vertexMap.values()) {
-            if(vertex.dist == INFINITY)
-            {
+            if (vertex.dist == INFINITY) {
                 return false;
             }
         }
         return true;
     }
 
-    private void printPath(Vertex dest)
-    {
-        if(dest.prev != null)
-        {
+    private void printPath(Vertex dest) {
+        if (dest.prev != null) {
             printPath(dest.prev);
             System.out.print(" to ");
         }
@@ -232,34 +201,27 @@ public class Graph {
 
     public void printPath(String destName) {
         Vertex w = vertexMap.get(destName);
-        if(w == null)
-        {
+        if (w == null) {
             throw new NoSuchElementException();
-        }
-        else if (w.dist == INFINITY)
-        {
+        } else if (w.dist == INFINITY) {
             System.out.println(destName + " is unreachable");
-        }
-        else {
+        } else {
             System.out.print("(Cost is: " + w.dist + " ) ");
             printPath(w);
             System.out.println();
         }
     }
 
-    public double getDistance(String destName)
-    {
+    public double getDistance(String destName) {
         Vertex w = vertexMap.get(destName);
-        if(w == null)
-        {
+        if (w == null) {
             throw new NoSuchElementException();
         }
         return w.dist;
     }
 
     private void clearAll() {
-        for(Vertex v : vertexMap.values())
-        {
+        for (Vertex v : vertexMap.values()) {
             v.reset();
         }
     }
@@ -271,7 +233,7 @@ public class Graph {
             string += "Vertex " + vertex.name + ":\n";
             if (vertex.adj.size() != 0)
                 for (Edge edge : vertex.adj) {
-                    string += edge.dest.name + " " + edge.cost+  "\n";
+                    string += edge.dest.name + " " + edge.cost + "\n";
                 }
             else string += "No edges...\n";
         }

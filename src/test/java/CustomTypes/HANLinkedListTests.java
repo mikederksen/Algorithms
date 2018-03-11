@@ -162,7 +162,7 @@ public class HANLinkedListTests {
         sut.addFirst(ITEM2);
         sut.addFirst(ITEM1);
 
-        sut.insert(2,ITEM3);
+        sut.insert(2, ITEM3);
 
         assertEquals(ITEM3, sut.get(2));
     }

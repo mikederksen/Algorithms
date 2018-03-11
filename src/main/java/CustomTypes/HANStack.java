@@ -13,7 +13,7 @@ public class HANStack<T> {
     }
 
     public T pop() {
-        if(isEmpty()) {
+        if (isEmpty()) {
             throw new EmptyStackException();
         }
 
@@ -24,7 +24,7 @@ public class HANStack<T> {
     }
 
     public T top() {
-        if(isEmpty()) {
+        if (isEmpty()) {
             throw new EmptyStackException();
         }
 

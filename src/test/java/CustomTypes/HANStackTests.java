@@ -105,7 +105,6 @@ public class HANStackTests {
         sut.pop();
     }
 
-
     @Test
     public void toStringDisplaysElementsIfMultipleExist() {
         sut.push(ITEM3);
