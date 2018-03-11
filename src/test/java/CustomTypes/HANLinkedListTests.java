@@ -5,7 +5,13 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 import static junit.framework.TestCase.assertEquals;
+import static junit.framework.TestCase.assertFalse;
+import static junit.framework.TestCase.assertTrue;
 
 public class HANLinkedListTests {
 
@@ -251,5 +257,63 @@ public class HANLinkedListTests {
     @Test
     public void toStringDisplaysEmptyStringIfNoneExist() {
         assertEquals("[]", sut.toString());
+    }
+
+    @Test
+    public void iteratorHasNextIsFalseWhenEmpty() {
+        Iterator<String> iterator = sut.iterator();
+
+        assertFalse(iterator.hasNext());
+    }
+
+    @Test
+    public void iteratorHasNextIsTrueWhenOneItemPresent() {
+        Iterator<String> iterator = sut.iterator();
+
+        sut.addFirst(ITEM1);
+
+        assertTrue(iterator.hasNext());
+    }
+
+    @Test
+    public void iteratorNextThrowsIndexOutOfBoundsExceptionWhenEmpty() {
+        expectedException.expect(IndexOutOfBoundsException.class);
+        Iterator<String> iterator = sut.iterator();
+
+        iterator.next();
+    }
+
+    @Test
+    public void iteratorNextReturnsFirstItemWhenOnePresent() {
+        Iterator<String> iterator = sut.iterator();
+
+        sut.addFirst(ITEM1);
+
+        assertEquals(ITEM1, iterator.next());
+        assertFalse(iterator.hasNext());
+    }
+
+    @Test
+    public void iteratorNextThrowsIndexOutOfBoundsExceptionWhenOneItemPresentAndAlreadyRetrieved() {
+        expectedException.expect(IndexOutOfBoundsException.class);
+        Iterator<String> iterator = sut.iterator();
+
+        sut.addFirst(ITEM1);
+
+        iterator.next();
+        iterator.next();
+    }
+
+    @Test
+    public void iteratorCanRetrieveAllItems() {
+        sut.addFirst(ITEM3);
+        sut.addFirst(ITEM2);
+        sut.addFirst(ITEM1);
+        Iterator<String> iterator = sut.iterator();
+
+        assertEquals(ITEM1, iterator.next());
+        assertEquals(ITEM2, iterator.next());
+        assertEquals(ITEM3, iterator.next());
+        assertFalse(iterator.hasNext());
     }
 }

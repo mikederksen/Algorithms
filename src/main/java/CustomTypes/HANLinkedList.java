@@ -1,10 +1,11 @@
 package CustomTypes;
 
+import java.util.Iterator;
 import java.util.Optional;
 
 // HANLinkedList should not be package-private since this is a library
 @SuppressWarnings({ "WeakerAccess" })
-public class HANLinkedList<T> {
+public class HANLinkedList<T> implements Iterable<T> {
 
     private Optional<HANLinkedListNode<T>> firstNode;
     private int size;
@@ -90,5 +91,41 @@ public class HANLinkedList<T> {
                 .orElse("");
 
         return String.format("[%s]", nodesToString);
+    }
+
+    @Override
+    public Iterator<T> iterator() {
+        return new HANLinkedListIterator();
+    }
+
+    private class HANLinkedListIterator implements Iterator<T> {
+
+        HANLinkedListNode<T> current = null;
+
+        @Override
+        public boolean hasNext() {
+            if(current == null && firstNode.isPresent()) {
+                return true;
+            } else if (current == null) {
+                return false;
+            } else if (current.getNext().isPresent()) {
+                return true;
+            }
+
+            return false;
+        }
+
+        @Override
+        public T next() {
+            if(!firstNode.isPresent()) {
+                throw new IndexOutOfBoundsException();
+            } else if (current == null) {
+                current = firstNode.get();
+            } else {
+                current = current.getNext().orElseThrow(IndexOutOfBoundsException::new);
+            }
+
+            return current.getValue();
+        }
     }
 }
