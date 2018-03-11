@@ -46,7 +46,8 @@ public class SorterTests {
     public void insertionSortThrowsIllegalArgumentExceptionWhenInputIsNull() {
         expectedException.expect(IllegalArgumentException.class);
 
-        Sorter.insertionSort(null);
+        List<String> input = null;
+        Sorter.insertionSort(input);
     }
 
     @Test
@@ -70,7 +71,8 @@ public class SorterTests {
         expectedException.expect(IllegalArgumentException.class);
         expectedException.expectMessage(INPUT_NOT_NULL_EXCEPTION);
 
-        Sorter.bubbleSort(null);
+        List<String> input = null;
+        Sorter.bubbleSort(input);
     }
 
     @Test
@@ -94,7 +96,8 @@ public class SorterTests {
         expectedException.expect(IllegalArgumentException.class);
         expectedException.expectMessage(INPUT_NOT_NULL_EXCEPTION);
 
-        Sorter.selectionSort(null);
+        List<String> input = null;
+        Sorter.selectionSort(input);
     }
 
     @Test
@@ -118,7 +121,8 @@ public class SorterTests {
         expectedException.expect(IllegalArgumentException.class);
         expectedException.expectMessage(INPUT_NOT_NULL_EXCEPTION);
 
-        Sorter.mergeSort(null);
+        List<String> input = null;
+        Sorter.mergeSort(input);
     }
 
     @Test
@@ -142,7 +146,8 @@ public class SorterTests {
         expectedException.expect(IllegalArgumentException.class);
         expectedException.expectMessage(INPUT_NOT_NULL_EXCEPTION);
 
-        Sorter.quickSort(null);
+        List<String> input = null;
+        Sorter.quickSort(input);
     }
 
     @Test

@@ -1,32 +1,40 @@
 package Algorithms;
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.List;
 
+@SuppressWarnings("WeakerAccess")
 public class Sorter {
 
     private static final String INPUT_NOT_NULL_EXCEPTION = "input should not be null";
 
-    public static <T extends Comparable<? super T>> List insertionSort(List<T> input) {
+    public static <T extends Comparable<? super T>> List<T> insertionSort(List<T> input) {
         if (input == null) {
             throw new IllegalArgumentException(INPUT_NOT_NULL_EXCEPTION);
         }
 
-        List<T> sortedItems = new ArrayList<>(input);
-        int size = sortedItems.size();
+        return Arrays.asList(insertionSort((T[]) input.toArray()));
+    }
+
+    public static <T extends Comparable<? super T>> T[] insertionSort(T[] input) {
+        if (input == null) {
+            throw new IllegalArgumentException(INPUT_NOT_NULL_EXCEPTION);
+        }
+
+        int size = input.length;
 
         for (int i = 1; i < size; i++) {
             for (int j = i; j > 0; j--) {
-                if (sortedItems.get(j).compareTo(sortedItems.get(j - 1)) < 0) {
-                    T temp = sortedItems.get(j);
-                    sortedItems.set(j, sortedItems.get(j - 1));
-                    sortedItems.set(j - 1, temp);
+                if (input[j].compareTo(input[j - 1]) < 0) {
+                    T temp = input[j];
+                    input[j] = input[j - 1];
+                    input[j - 1] = temp;
                 }
             }
         }
 
-        return sortedItems;
+        return input;
     }
 
     public static <T extends Comparable<? super T>> List bubbleSort(List<T> input) {
@@ -34,21 +42,27 @@ public class Sorter {
             throw new IllegalArgumentException(INPUT_NOT_NULL_EXCEPTION);
         }
 
-        List<T> sortedItems = new ArrayList<>(input);
-        int size = sortedItems.size();
+        return Arrays.asList(bubbleSort((T[]) input.toArray()));
+    }
+
+    public static <T extends Comparable<? super T>> T[] bubbleSort(T[] input) {
+        if (input == null) {
+            throw new IllegalArgumentException(INPUT_NOT_NULL_EXCEPTION);
+        }
+
+        int size = input.length;
 
         for (int i = 0; i < size; i++) {
             for (int j = 1; j < (size - i); j++) {
-                if (sortedItems.get(j - 1).compareTo(sortedItems.get(j)) > 0) {
-                    T temp = sortedItems.get(j - 1);
-                    sortedItems.set(j - 1, sortedItems.get(j));
-                    sortedItems.set(j, temp);
+                if (input[j - 1].compareTo(input[j]) > 0) {
+                    T temp = input[j - 1];
+                    input[j - 1] = input[j];
+                    input[j] = temp;
                 }
-
             }
         }
 
-        return sortedItems;
+        return input;
     }
 
     public static <T extends Comparable<? super T>> List selectionSort(List<T> input) {
@@ -56,24 +70,31 @@ public class Sorter {
             throw new IllegalArgumentException(INPUT_NOT_NULL_EXCEPTION);
         }
 
-        List<T> sortedItems = new ArrayList<>(input);
-        int size = sortedItems.size();
+        return Arrays.asList(selectionSort((T[]) input.toArray()));
+    }
+
+    public static <T extends Comparable<? super T>> T[] selectionSort(T[] input) {
+        if (input == null) {
+            throw new IllegalArgumentException(INPUT_NOT_NULL_EXCEPTION);
+        }
+
+        int size = input.length;
 
         for (int i = 0; i < size - 1; i++) {
             int index = i;
 
             for (int j = i + 1; j < size; j++) {
-                if (sortedItems.get(j).compareTo(sortedItems.get(index)) < 0) {
+                if (input[j].compareTo(input[index]) < 0) {
                     index = j;
                 }
             }
 
-            T smaller = sortedItems.get(index);
-            sortedItems.set(index, sortedItems.get(i));
-            sortedItems.set(i, smaller);
+            T smaller = input[index];
+            input[index] = input[i];
+            input[i] = smaller;
         }
 
-        return sortedItems;
+        return input;
     }
 
     public static <T extends Comparable<? super T>> List mergeSort(List<T> input) {
@@ -81,69 +102,98 @@ public class Sorter {
             throw new IllegalArgumentException(INPUT_NOT_NULL_EXCEPTION);
         }
 
-        List<T> sortedItems = new ArrayList<>(input);
-        List<T> helper = new ArrayList<>();
-
-        mergeSort(sortedItems, helper, 0, input.size());
-
-        return sortedItems;
+        return Arrays.asList(mergeSort((T[]) input.toArray()));
     }
 
-    private static <T extends Comparable<? super T>> void mergeSort(List<T> input, List<T> helper, int low, int high) {
-        if (low < high) {
-            int middle = low + (high - low) / 2;
+    public static <T extends Comparable<? super T>> T[] mergeSort(T[] input) {
+        mergeSort(input, 0, input.length - 1);
 
-            mergeSort(input, helper, low, middle);
-            mergeSort(input, helper, middle + 1, high);
-            merge(input, helper, low, middle, high);
+        return input;
+    }
+
+    private static <T extends Comparable<? super T>> void mergeSort(T[] input, int links, int rechts) {
+        if (links < rechts) {
+            int midden = (links + rechts) / 2;
+
+            mergeSort(input, links, midden);
+            mergeSort(input, midden + 1, rechts);
+
+            merge(input, links, midden, rechts);
         }
     }
 
-    private static <T extends Comparable<? super T>> void merge(List<T> input, List<T> helper, int low, int middle, int high) {
-        // Copy both parts into the helper array
-        for (int i = low; i <= high; i++) {
-            helper.set(i, input.get(i));
+    private static <T extends Comparable<? super T>> void merge(T[] input, int links, int midden, int rechts) {
+        // Find sizes of two subarrays to be merged
+        int arraySizeLinks = midden - links + 1;
+        int arraySizeRechts = rechts - midden;
+
+        /* Create temp arrays */
+        ArrayList<T> tempLinks = new ArrayList<>(arraySizeLinks);
+        ArrayList<T> tempRechts = new ArrayList<>(arraySizeRechts);
+
+        /*Copy data to temp arrays*/
+        for (int i = 0; i < arraySizeLinks; ++i) {
+            tempLinks.add(input[links + i]);
+        }
+        for (int i = 0; i < arraySizeRechts; ++i) {
+            tempRechts.add(input[midden + 1 + i]);
         }
 
-        int i = low;
-        int j = middle + 1;
-        int k = low;
-        // Copy the smallest values from either the left or the right side back
-        // to the original array
-        while (i <= middle && j <= high) {
-            if (helper.get(i).compareTo(helper.get(j)) <= 0) {
-                input.set(k, helper.get(i));
-                i++;
+
+        /* Merge the temp arrays */
+
+        // Initial indexes of first and second subarrays
+        int indexLinks = 0, indexRechts = 0;
+
+        // Initial index of merged subarry array
+        int mergedIndex = links;
+        while (indexLinks < arraySizeLinks && indexRechts < arraySizeRechts) {
+            if (tempLinks.get(indexLinks).compareTo(tempRechts.get(indexRechts)) <= 0) {
+                input[mergedIndex] = tempLinks.get(indexLinks);
+                indexLinks++;
             } else {
-                input.set(k, helper.get(j));
-                j++;
+                input[mergedIndex] = tempRechts.get(indexRechts);
+                indexRechts++;
             }
-            k++;
+            mergedIndex++;
         }
-        // Copy the rest of the left side of the array into the target array
-        while (i <= middle) {
-            input.set(k, helper.get(i));
-            k++;
-            i++;
-        }
-        // Since we are sorting in-place any leftover elements from the right side
-        // are already at the right position.
 
+        /* Copy remaining elements of L[] if any */
+        while (indexLinks < arraySizeLinks) {
+            input[mergedIndex] = tempLinks.get(indexLinks);
+            indexLinks++;
+            mergedIndex++;
+        }
+
+        /* Copy remaining elements of R[] if any */
+        while (indexRechts < arraySizeRechts) {
+            input[mergedIndex] = tempRechts.get(indexRechts);
+            indexRechts++;
+            mergedIndex++;
+        }
     }
 
-    public static <T extends Comparable<? super T>> List quickSort(List<T> input) {
+
+    public static <T extends Comparable<? super T>> List<T> quickSort(List<T> input) {
         if (input == null) {
             throw new IllegalArgumentException(INPUT_NOT_NULL_EXCEPTION);
         }
 
-        List<T> sortedItems = new ArrayList<>(input);
-        quickSort(sortedItems, 0, sortedItems.size() - 1);
-
-        return sortedItems;
+        return Arrays.asList(quickSort((T[]) input.toArray()));
     }
 
-    private static <T extends Comparable<? super T>> void quickSort(List<T> arr, int low, int high) {
-        if (arr == null || arr.size() == 0) {
+    public static <T extends Comparable<? super T>> T[] quickSort(T[] input) {
+        if (input == null) {
+            throw new IllegalArgumentException(INPUT_NOT_NULL_EXCEPTION);
+        }
+
+        quickSort(input, 0, input.length - 1);
+
+        return input;
+    }
+
+    private static <T extends Comparable<? super T>> void quickSort(T[] arr, int low, int high) {
+        if (arr == null || arr.length == 0) {
             return;
         }
 
@@ -152,24 +202,24 @@ public class Sorter {
         }
 
         int middle = low + (high - low) / 2;
-        T pivot = arr.get(middle);
+        T pivot = arr[middle];
 
         int i = low;
         int j = high;
 
         while (i <= j) {
-            while (arr.get(i).compareTo(pivot) < 0) {
+            while (arr[i].compareTo(pivot) < 0) {
                 i++;
             }
 
-            while (arr.get(j).compareTo(pivot) > 0) {
+            while (arr[j].compareTo(pivot) > 0) {
                 j--;
             }
 
             if (i <= j) {
-                T temp = arr.get(i);
-                arr.set(i, arr.get(j));
-                arr.set(j, temp);
+                T temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
                 i++;
                 j--;
             }
