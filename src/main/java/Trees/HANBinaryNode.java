@@ -74,11 +74,6 @@ public class HANBinaryNode<T extends Comparable<? super T>> extends HANBinaryTre
         return sortedArrayToBalanced(sortedItems, 0, sortedItems.size() -1);
     }
 
-    @Override
-    public boolean isAvl() {
-        return false;
-    }
-
     private HANBinaryTree<T> sortedArrayToBalanced(List<T> arr, int start, int end){
         if (start > end){
             return new HANBinaryEmpty<>();
@@ -123,10 +118,10 @@ public class HANBinaryNode<T extends Comparable<? super T>> extends HANBinaryTre
     protected void appendToString(int indent, StringBuilder builder) {
         if(indent != 0) {
             builder.append('\n');
-            builder.append('|');
+            builder.append(new String(new char[indent - 1]).replace('\0', ' '));
+            builder.append('┝');
         }
 
-        builder.append(new String(new char[indent]).replace('\0', '.'));
         builder.append(value);
 
         left.appendToString(indent + 1, builder);

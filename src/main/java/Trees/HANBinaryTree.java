@@ -19,7 +19,5 @@ public abstract class HANBinaryTree<T extends Comparable<? super T>> implements 
 
     public abstract HANBinaryTree<T> balance();
 
-    public abstract boolean isAvl();
-
     protected abstract void appendToString(int indent, StringBuilder builder);
 }
