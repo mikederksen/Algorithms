@@ -2,6 +2,8 @@ package Trees;
 
 import org.junit.Test;
 
+import static junit.framework.TestCase.assertEquals;
+
 public class HANFCNSTreeTests {
 
     @Test
@@ -23,6 +25,23 @@ public class HANFCNSTreeTests {
         node1.addChild(node6);
         node5.addChild(node7);
 
-        System.out.println(tree);
+        String expected = "0\n" +
+                ".1\n" +
+                "..5\n" +
+                "...7\n" +
+                "..6\n" +
+                ".2\n" +
+                "..3\n" +
+                "..4";
+
+        assertEquals(expected, tree.toString());
+    }
+
+    @Test
+    public void getValueRetrievesValue() {
+        Integer value = 10;
+        HANFCNSTreeNode<Integer> node = new HANFCNSTreeNode<>(value);
+
+        assertEquals(value, node.getValue());
     }
 }

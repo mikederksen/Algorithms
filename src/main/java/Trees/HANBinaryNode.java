@@ -54,7 +54,7 @@ public class HANBinaryNode<T extends Comparable<? super T>> extends HANBinaryTre
 
     @Override
     public T find(T value) {
-        if(isSame(value)) {
+        if (isSame(value)) {
             return this.value;
         } else if (isSmaller(value)) {
             return left.find(value);
@@ -67,15 +67,15 @@ public class HANBinaryNode<T extends Comparable<? super T>> extends HANBinaryTre
     public HANBinaryTree<T> balance() {
         List<T> sortedItems = new ArrayList<>();
 
-        for(T item : this) {
+        for (T item : this) {
             sortedItems.add(item);
         }
 
-        return sortedArrayToBalanced(sortedItems, 0, sortedItems.size() -1);
+        return sortedArrayToBalanced(sortedItems, 0, sortedItems.size() - 1);
     }
 
-    private HANBinaryTree<T> sortedArrayToBalanced(List<T> arr, int start, int end){
-        if (start > end){
+    private HANBinaryTree<T> sortedArrayToBalanced(List<T> arr, int start, int end) {
+        if (start > end) {
             return new HANBinaryEmpty<>();
         }
 
@@ -116,12 +116,11 @@ public class HANBinaryNode<T extends Comparable<? super T>> extends HANBinaryTre
 
     @Override
     protected void appendToString(int indent, StringBuilder builder) {
-        if(indent != 0) {
+        if (indent != 0) {
             builder.append('\n');
-            builder.append(new String(new char[indent - 1]).replace('\0', ' '));
-            builder.append('┝');
         }
 
+        builder.append(new String(new char[indent]).replace('\0', '.'));
         builder.append(value);
 
         left.appendToString(indent + 1, builder);
@@ -143,11 +142,11 @@ public class HANBinaryNode<T extends Comparable<? super T>> extends HANBinaryTre
 
         public HANBinaryNodeIterator() {
             leftIterator = left instanceof HANBinaryNode
-                    ? ((HANBinaryNode)left).iterator()
+                    ? ((HANBinaryNode) left).iterator()
                     : null;
 
             rightIterator = right instanceof HANBinaryNode
-                    ? ((HANBinaryNode)right).iterator()
+                    ? ((HANBinaryNode) right).iterator()
                     : null;
         }
 
@@ -158,19 +157,19 @@ public class HANBinaryNode<T extends Comparable<? super T>> extends HANBinaryTre
 
         @Override
         public T next() {
-            if(hasLeft()) {
+            if (hasLeft()) {
                 return leftIterator.next();
-            } else if(current == null) {
+            } else if (current == null) {
                 current = value;
                 return current;
-            } else if(hasRight()) {
+            } else if (hasRight()) {
                 return rightIterator.next();
             } else {
                 throw new IndexOutOfBoundsException();
             }
         }
 
-        private boolean hasLeft () {
+        private boolean hasLeft() {
             return leftIterator != null && leftIterator.hasNext();
         }
 

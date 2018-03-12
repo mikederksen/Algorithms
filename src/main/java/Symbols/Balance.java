@@ -55,6 +55,11 @@ public class Balance {
         return errors + tok.getErrorCount();
     }
 
+    @Override
+    public String toString() {
+        return tok.toString();
+    }
+
     private Tokenizer tok;
     private int errors;
 

@@ -13,11 +13,11 @@ public class HANFCNSTreeNode<T> {
         this.value = value;
     }
 
-    public void addChild(HANFCNSTreeNode<T> value) {
+    public void addChild(HANFCNSTreeNode<T> newNode) {
         if (child != null) {
-            child.addSibling(value);
+            child.addSibling(newNode);
         } else {
-            child = value;
+            child = newNode;
         }
     }
 

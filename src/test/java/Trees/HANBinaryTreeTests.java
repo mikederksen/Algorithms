@@ -161,21 +161,21 @@ public class HANBinaryTreeTests {
     public void treeWith5Finds5() {
         HANBinaryTree<Integer> tree = new HANBinaryEmpty<Integer>().add(5);
 
-        assertEquals((Integer)5, tree.find(5));
+        assertEquals((Integer) 5, tree.find(5));
     }
 
     @Test
     public void treeWith5and3and8Finds8() {
         HANBinaryTree<Integer> tree = new HANBinaryEmpty<Integer>().add(5).add(3).add(8);
 
-        assertEquals((Integer)8, tree.find(8));
+        assertEquals((Integer) 8, tree.find(8));
     }
 
     @Test
     public void treeWith5and3and8Find5() {
         HANBinaryTree<Integer> tree = new HANBinaryEmpty<Integer>().add(5).add(3).add(8);
 
-        assertEquals((Integer)5, tree.find(5));
+        assertEquals((Integer) 5, tree.find(5));
     }
 
     @Test
@@ -188,7 +188,7 @@ public class HANBinaryTreeTests {
 
     @Test
     public void treeWithMultipleCanIterate() {
-        int[] items = new int[] { 5, 3, 2, 4, 16, 10, 11, 12 };
+        int[] items = new int[]{5, 3, 2, 4, 16, 10, 11, 12};
         HANBinaryTree<Integer> tree = new HANBinaryEmpty<>();
 
         for (int item : items) {
@@ -255,14 +255,23 @@ public class HANBinaryTreeTests {
     public void toStringPrintsTreeWithMultiple() {
         HANBinaryTree<Integer> tree = new HANBinaryEmpty<Integer>().add(5).add(3).add(8);
 
-        assertEquals("5\n|.3\n|.8", tree.toString());
+        String expected = "5\n" +
+                          ".3\n" +
+                          ".8";
+
+        assertEquals(expected, tree.toString());
     }
 
     @Test
     public void toStringPrintsTreeWithMultipleWhenLeftLongerThanRight() {
         HANBinaryTree<Integer> tree = new HANBinaryEmpty<Integer>().add(5).add(3).add(8).add(1);
 
-        assertEquals("5\n|.3\n|..1\n|.8", tree.toString());
+        String expected = "5\n" +
+                          ".3\n" +
+                          "..1\n" +
+                          ".8";
+
+        assertEquals(expected, tree.toString());
     }
 
     @Test
@@ -286,12 +295,16 @@ public class HANBinaryTreeTests {
                 .add(14)
                 .add(15);
 
-        System.out.println(tree);
+        String expected = "5\n" +
+                          ".3\n" +
+                          "..1\n" +
+                          ".8\n" +
+                          "..10\n" +
+                          "...11\n" +
+                          "....14\n" +
+                          ".....13\n" +
+                          ".....15";
 
-        System.out.println('\n');
-
-        HANBinaryTree<Integer> balancedTree = tree.balance();
-
-        System.out.println(balancedTree);
+        assertEquals(expected, tree.toString());
     }
 }

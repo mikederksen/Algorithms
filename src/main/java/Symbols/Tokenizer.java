@@ -1,10 +1,11 @@
 package Symbols;
 
-import com.sun.org.apache.bcel.internal.generic.NEW;
+import org.apache.commons.io.IOUtils;
 
 import java.io.IOException;
 import java.io.PushbackReader;
 import java.io.Reader;
+import java.io.StringReader;
 
 public class Tokenizer {
     public Tokenizer(Reader inStream) {
@@ -44,6 +45,18 @@ public class Tokenizer {
         }
 
         return '\0';
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder result = new StringBuilder();
+        while (nextChar()) {
+            result.append(currentChar);
+        }
+
+        inputStream = new PushbackReader(new StringReader(result.toString())); // Niet de mooiste manier, werkt voor nu.
+
+        return result.toString();
     }
 
     //public char getNextID() {

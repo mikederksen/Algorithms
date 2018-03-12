@@ -41,7 +41,7 @@ public class GraphTests {
     }
 
     @Test
-    public void distanceOfBtoDShouldBe5UsingDijkstra() {
+    public void distanceOfBtoDShouldBe4UsingDijkstra() {
         _sut.dijkstra("B");
 
         assertEquals(4.0, _sut.getDistance("D"), 0);
