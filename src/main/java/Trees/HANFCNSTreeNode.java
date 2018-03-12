@@ -13,14 +13,6 @@ public class HANFCNSTreeNode<T> {
         this.value = value;
     }
 
-    private void addSibling(T value) {
-        if (sibling != null) {
-            sibling.addSibling(value);
-        } else {
-            sibling = new HANFCNSTreeNode<>(value);
-        }
-    }
-
     public void addChild(T value) {
         if (child != null) {
             child.addSibling(value);
@@ -36,5 +28,13 @@ public class HANFCNSTreeNode<T> {
     @Override
     public String toString() {
         return "";
+    }
+
+    private void addSibling(T value) {
+        if (sibling != null) {
+            sibling.addSibling(value);
+        } else {
+            sibling = new HANFCNSTreeNode<>(value);
+        }
     }
 }

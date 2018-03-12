@@ -2,6 +2,7 @@ package CustomTypes;
 
 import java.util.Optional;
 
+@SuppressWarnings("WeakerAccess")
 public class HANLinkedListNode<T> {
 
     private final T value;
